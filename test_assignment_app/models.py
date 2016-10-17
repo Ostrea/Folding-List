@@ -1,9 +1,11 @@
 from django.db import models
 
 
-class Menu:
+class Menu(models.Model):
+    name = models.CharField(max_length=200)
+    link = models.CharField(max_length=200)
+    parent = models.ForeignKey('self', blank=True, null=True,
+                               related_name='children')
 
-    def __init__(self, name, link, items=None):
-        self.name = name
-        self.link = link
-        self.items = items
+    def __str__(self):
+        return 'Name: {}, Link: {}'.format(self.name, self.link)
