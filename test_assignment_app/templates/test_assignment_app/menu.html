@@ -1,5 +1,8 @@
-<ul>
-{% for choice in choices %}
-    <li> {{ choice }} </li>
+
+{% for x in items%}
+{% if x.start_nodes %}<ul>{% endif %}
+{% if x.end_nodes %}</ul>{% endif %}
+{% if x.start_node %}<li>{% endif %}
+{% if x.end_node %}</li>{% endif %}
+{% if x.is_data %}{{ x.data }}{% endif %}
 {% endfor %}
-</ul>
