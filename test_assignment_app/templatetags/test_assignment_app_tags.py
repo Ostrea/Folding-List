@@ -1,6 +1,6 @@
 from django import template
 
-from ..models import Menu, MenuItem
+from ..models import Menu
 
 
 register = template.Library()
@@ -9,19 +9,19 @@ register = template.Library()
 @register.inclusion_tag('test_assignment_app/menu.html')
 def draw_menu(menu_name):
     menu = Menu('Super menu', 'super_menu_link',
-                [MenuItem('First', 'first_link'),
-                 MenuItem('Second', 'second_link'),
+                [Menu('First', 'first_link'),
+                 Menu('Second', 'second_link'),
                  Menu('Third', 'third_link',
-                      [MenuItem('Sub third one', 'sub_third_one_link'),
+                      [Menu('Sub third one', 'sub_third_one_link'),
                        Menu('Sub third two', 'sub_third_two_link',
-                            [MenuItem('Sub sub third two',
-                                      'sub_sub_third_two_link')])])])
+                            [Menu('Sub sub third two',
+                                  'sub_sub_third_two_link')])])])
 
     return {'items': nested_to_flat(menu)}
 
 
 def nested_to_flat(node):
-    if isinstance(node, Menu):
+    if node.items is not None:
         yield {'link': node.link, 'data': node.name, 'is_data': True}
         yield {'start_nodes': True}
 
@@ -33,4 +33,4 @@ def nested_to_flat(node):
 
         yield {'end_nodes': True}
     else:
-        yield {'link': node.link, 'data': node.value, 'is_data': True}
+        yield {'link': node.link, 'data': node.name, 'is_data': True}
