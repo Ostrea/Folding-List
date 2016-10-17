@@ -8,24 +8,16 @@ register = template.Library()
 
 @register.inclusion_tag('test_assignment_app/menu.html')
 def draw_menu(menu_name):
-    menu = Menu('Super menu', 'super_menu_link',
-                [Menu('First', 'first_link'),
-                 Menu('Second', 'second_link'),
-                 Menu('Third', 'third_link',
-                      [Menu('Sub third one', 'sub_third_one_link'),
-                       Menu('Sub third two', 'sub_third_two_link',
-                            [Menu('Sub sub third two',
-                                  'sub_sub_third_two_link')])])])
-
+    menu = Menu.objects.get(name=menu_name)
     return {'items': nested_to_flat(menu)}
 
 
 def nested_to_flat(node):
-    if node.items is not None:
+    if node.children.exists():
         yield {'link': node.link, 'data': node.name, 'is_data': True}
         yield {'start_nodes': True}
 
-        for menu_item in node.items:
+        for menu_item in node.children.all():
             yield {'start_node': True}
             for item in nested_to_flat(menu_item):
                 yield item
