@@ -1,5 +1,8 @@
 var treeMenu = {};
 
+treeMenu.openedFolder = "/static/test_assignment_app/images/opened.gif";
+treeMenu.closedFolder = "/static/test_assignment_app/images/closed.gif";
+
 treeMenu.createTree = function (id) {
     var ulTags = document.getElementById(id).getElementsByTagName("ul");
     for (var i = 0; i < ulTags.length; i++)
@@ -27,9 +30,13 @@ treeMenu.buildSubTree = function (id, ulElement, index) {
         if (subMenu.getAttribute("status") === "closed") {
             subMenu.style.display = "block";
             subMenu.setAttribute("status", "opened");
+            ulElement.parentNode.style.backgroundImage =
+                "url(" + treeMenu.openedFolder + ")";
         } else if (subMenu.getAttribute("status") === "opened") {
             subMenu.style.display = "none";
             subMenu.setAttribute("status", "closed");
+            ulElement.parentNode.style.backgroundImage =
+                "url(" + treeMenu.closedFolder + ")";
         }
         treeMenu.preventPropagation(event);
     };
@@ -44,17 +51,20 @@ treeMenu.expandSubTree = function (id, ulElement) {
     var rootNode = document.getElementById(id);
     var currentNode = ulElement;
     currentNode.style.display = "block";
+    currentNode.parentNode.style.backgroundImage =
+        "url(" + treeMenu.openedFolder + ")";
+
     while (currentNode !== rootNode) {
         // If parent node is a ul, expand it too.
         if (currentNode.tagName === "ul") {
             currentNode.style.display = "block";
             currentNode.setAttribute("status", "opened");
+            currentNode.parentNode.style.backgroundImage =
+                "url(" + treeMenu.openedFolder + ")";
         }
         currentNode = currentNode.parentNode;
     }
 };
-
-////A few utility functions below//////////////////////
 
 // Prevent action from bubbling upwards.
 treeMenu.preventPropagation = function (event) {
@@ -66,5 +76,8 @@ treeMenu.preventPropagation = function (event) {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    treeMenu.createTree("super_menu");
+    var treeViews = document.getElementsByClassName('treeview');
+    for (var i = 0; i < treeViews.length; i++) {
+        treeMenu.createTree(treeViews[i].id);
+    }
 });
