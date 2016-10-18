@@ -1,7 +1,11 @@
 {% for x in items %}
 
 {% if x.start_nodes %}
-<ul>
+    {% if x.highest_level_menu %}
+    <ul id="{{ x.menu_name }}" class="treeview">
+    {% else %}
+    <ul>
+    {% endif %}
 {% endif %}
 {% if x.end_nodes %}
 </ul>
@@ -15,8 +19,9 @@
 {% endif %}
 
 {% if x.is_data %}
+{{ x.data }}
 <a href="{{ x.link }}">
-    {{ x.data }}
+    (link)
 </a>
 {% endif %}
 
