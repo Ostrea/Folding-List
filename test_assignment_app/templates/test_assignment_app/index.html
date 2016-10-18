@@ -8,5 +8,5 @@
 <script type="text/javascript"
         src="{% static 'test_assignment_app/js/main.js' %}"></script>
 
-{% draw_menu 'Super menu' %}
-{% draw_menu 'Main menu' %}
+{% draw_menu 'Super menu' request_menu_name active_item %}
+{% draw_menu 'Main menu' request_menu_name active_item %}
