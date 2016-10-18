@@ -4,7 +4,11 @@
     {% if x.highest_level_menu %}
     <ul id="{{ x.menu_name }}" class="treeview">
     {% else %}
-    <ul>
+        {% if x.active %}
+        <ul status="opened">
+        {% else %}
+        <ul>
+        {% endif %}
     {% endif %}
 {% endif %}
 {% if x.end_nodes %}
