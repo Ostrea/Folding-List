@@ -1,0 +1,32 @@
+.treeview ul { 
+    margin: 0;
+    padding: 0;
+}
+
+/* Style for li elements in general (excludes an li that contains sub lists). */
+.treeview li {
+    background: white url(/static/test_assignment_app/images/item.gif)
+        no-repeat left center;
+    list-style-type: none;
+    padding-left: 22px;
+    margin-bottom: 3px;
+}
+
+/* Style for li that contains sub lists (other uls). */
+.treeview li.submenu {
+    background: white url(/static/test_assignment_app/images/closed.gif)
+        no-repeat left 1px;
+    cursor: hand !important;
+    cursor: pointer !important;
+}
+
+/* Style for uls that are children of lis (submenu). */
+.treeview li.submenu ul {
+    /* Hide them by default. */
+    display: none; 
+}
+
+/* Style for lis of uls that are children of lis (submenu). */
+.treeview .submenu ul li {
+    cursor: default;
+}
