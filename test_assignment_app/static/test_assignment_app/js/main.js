@@ -11,7 +11,7 @@ treeMenu.createTree = function (id) {
 
 treeMenu.buildSubTree = function (id, ulElement, index) {
     ulElement.parentNode.className = "submenu";
-
+ 
     // If ul has no status attribute explicitly added by user.
     if (ulElement.getAttribute("status") === null ||
         ulElement.getAttribute("status") === false) {
@@ -56,7 +56,7 @@ treeMenu.expandSubTree = function (id, ulElement) {
 
     while (currentNode !== rootNode) {
         // If parent node is a ul, expand it too.
-        if (currentNode.tagName === "ul") {
+        if (currentNode.tagName === "UL") {
             currentNode.style.display = "block";
             currentNode.setAttribute("status", "opened");
             currentNode.parentNode.style.backgroundImage =
