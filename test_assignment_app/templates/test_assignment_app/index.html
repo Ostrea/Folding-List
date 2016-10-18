@@ -2,5 +2,11 @@
 
 {% load test_assignment_app_tags %}
 
+{% load static %}
+<link rel="stylesheet" type="text/css"
+      href="{% static 'test_assignment_app/css/main.css' %}" />
+<script type="text/javascript"
+        src="{% static 'test_assignment_app/js/main.js' %}"></script>
+
 {% draw_menu 'Super menu' %}
 {% draw_menu 'Main menu' %}
