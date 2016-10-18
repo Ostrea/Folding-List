@@ -7,9 +7,12 @@ register = template.Library()
 
 
 @register.inclusion_tag('test_assignment_app/menu.html')
-def draw_menu(menu_name):
+def draw_menu(menu_name, request_menu_name, active_item):
+    if request_menu_name != menu_name:
+        active_item = ''
+
     menu = Menu.objects.get(name=menu_name)
-    return {'items': nested_to_flat(menu, True, 'Sub third two')}
+    return {'items': nested_to_flat(menu, True, active_item)}
 
 
 def nested_to_flat(node, highest_level_menu, active_item):
